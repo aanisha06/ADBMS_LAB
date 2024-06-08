@@ -89,6 +89,10 @@ select * from instructor where salary> any (select salary from instructor where 
 -- 7. Find the names of all instructors whose salary is greater than the salary of all instructors in the Biology department.
 select * from instructor where salary > all (select salary from instructor where dept_name='biology');
 
+Empty set (0.000 sec)
+
+-- 8. Find the average instructors’ salaries of those departments where the average salary is greater than 42,000.
+select dept_name,avg(salary) from instructor group by dept_name having avg(salary)> 42000;
 +-----------+-------------+
 | dept_name | avg(salary) |
 +-----------+-------------+
@@ -100,18 +104,3 @@ select * from instructor where salary > all (select salary from instructor where
 | physics   |  91000.0000 |
 +-----------+-------------+
 6 rows in set (0.000 sec)
-
-
--- 8. Find the average instructors’ salaries of those departments where the average salary is greater than 42,000.
-select dept_name,avg(salary) from instructor group by dept_name having avg(salary)> 42000;
-
-+-----------+-------------+-------------+
-| dept_name | sum(salary) | avg(salary) |
-+-----------+-------------+-------------+
-| biology   |      138000 |  69000.0000 |
-| comp.sci  |      232000 |  77333.3333 |
-| finance   |      170000 |  85000.0000 |
-| history   |      122000 |  61000.0000 |
-| physics   |      182000 |  91000.0000 |
-+-----------+-------------+-------------+
-5 rows in set (0.000 sec)
